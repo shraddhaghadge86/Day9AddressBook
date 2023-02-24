@@ -8,19 +8,39 @@ public class AddressBook {
     static void addPerson(ContactPerson person){
         contactPersons.add(person);
     }
-
+    static void deleteContact(String name){
+        System.out.println("Deleting " + name);
+        System.out.println("");
+        for (int i=0; i<contactPersons.size(); i++){
+            if(contactPersons.get(i).firstName == name){
+                contactPersons.remove(i);
+            }
+        }
+    }
     static void editContactPerson(String name, ContactPerson person){
+        System.out.println("Replacing " + name + " with " + person.firstName);
+        System.out.println("");
         for (int i = 0; i < contactPersons.size(); i++){
             if(contactPersons.get(i).firstName == name){
                 contactPersons.set(i,person);
             }
         }
     }
-
     static void showContacts(){
-        for (int i = 0; i < contactPersons.size(); i++)
-            System.out.println(contactPersons.get(i).firstName + " " +
-                    contactPersons.get(i).lastName + " -> " + contactPersons.get(i).phoneNumber);
+        System.out.println("Contact details");
+        System.out.println("");
+        for (int i = 0; i < contactPersons.size(); i++) {
+            System.out.println(i+1 + ":" + contactPersons.get(i).firstName);
+            System.out.println("____________________________________");
+            System.out.println("Name : " + contactPersons.get(i).firstName + " " + contactPersons.get(i).lastName);
+            System.out.println("Address : " + contactPersons.get(i).address);
+            System.out.println("City : " + contactPersons.get(i).city);
+            System.out.println("State : " + contactPersons.get(i).state);
+            System.out.println("Zip : " + contactPersons.get(i).zip);
+            System.out.println("Phone Number : " + contactPersons.get(i).phoneNumber);
+            System.out.println("Email : " + contactPersons.get(i).email);
+            System.out.println("");
+        }
     }
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book Program");
@@ -46,7 +66,7 @@ public class AddressBook {
                 "avadhutghadge@gmail.com"
         );
         ContactPerson contact3 = new ContactPerson(
-                "A",
+                "Anvi",
                 "Patil",
                 "Palus",
                 "Sangli",
@@ -62,8 +82,10 @@ public class AddressBook {
 
         showContacts();
 
-        editContactPerson("Anvi",contact3);
+        editContactPerson("Anvi",contact2);
 
+        showContacts();
+        deleteContact("Shraddha");
         showContacts();
     }
 }
