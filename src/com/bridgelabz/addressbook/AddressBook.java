@@ -1,6 +1,7 @@
 package com.bridgelabz.addressbook;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class AddressBook {
     static ArrayList<ContactPerson> contactPersons = new ArrayList<ContactPerson>();
@@ -27,6 +28,9 @@ public class AddressBook {
         }
     }
     static void showContacts(){
+        if(contactPersons.size() == 0){
+            System.out.println("No contacts in Address book");
+        }
         System.out.println("Contact details");
         System.out.println("");
         for (int i = 0; i < contactPersons.size(); i++) {
@@ -42,50 +46,77 @@ public class AddressBook {
             System.out.println("");
         }
     }
+
+    static ContactPerson readCustomerDetails(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter Customer Details ");
+        System.out.println("First Name: ");
+        String firstName = scan.nextLine();
+        System.out.println("Last Name: ");
+        String lastName = scan.nextLine();
+        System.out.println("Address: ");
+        String address = scan.nextLine();
+        System.out.println("State: ");
+        String state = scan.nextLine();
+        System.out.println("City: ");
+        String city = scan.nextLine();
+        System.out.println("Zip: ");
+        String zip = scan.nextLine();
+        System.out.println("Phone Number: ");
+        String phoneNumber = scan.nextLine();
+        System.out.println("Email: ");
+        String email = scan.nextLine();
+        ContactPerson person = new ContactPerson(
+                firstName,
+                lastName,
+                address,
+                city,
+                state,
+                zip,
+                phoneNumber,
+                email
+        );
+        return person;
+    }
+
+    static void displayOptions(){
+        Scanner scan =  new Scanner(System.in);
+        System.out.println("Select an option to continue");
+        System.out.println("1. Add user");
+        System.out.println("2. Edit user");
+        System.out.println("3. Delete user");
+        System.out.println("4. Close");
+        int option = scan.nextInt();
+
+        switch (option){
+            case 1:
+                ContactPerson person = readCustomerDetails();
+                addPerson(person);
+                showContacts();
+                displayOptions();
+                break;
+            case 2:
+                System.out.println("Enter the name to edit");
+                String name = scan.nextLine();
+                person = readCustomerDetails();
+                editContactPerson(name, person);
+                showContacts();
+                displayOptions();
+                break;
+            case 3:
+                System.out.println("Enter the name to delete");
+                name = scan.nextLine();
+                deleteContact(name);
+                showContacts();
+                displayOptions();
+                break;
+            case 4:
+                System.out.println("Stopped");
+
+        }
+    }
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book Program");
-        ContactPerson contact1 = new ContactPerson(
-                "Shraddha",
-                "Ghadge",
-                "Kalmbi",
-                "Satara",
-                "MH",
-                "415512",
-                "8605512168",
-                "shraddhaghadge86@gmail.com"
-        );
-
-        ContactPerson contact2 = new ContactPerson(
-                "Avadhut",
-                "Ghadge",
-                "Kalambi",
-                "Satara",
-                "MH",
-                "415512",
-                "9156894526",
-                "avadhutghadge@gmail.com"
-        );
-        ContactPerson contact3 = new ContactPerson(
-                "Anvi",
-                "Patil",
-                "Palus",
-                "Sangli",
-                "MH",
-                "416310",
-                "7030568952",
-                "anvipatil@gmail.com"
-        );
-
-        addPerson(contact1);
-        addPerson(contact2);
-        addPerson(contact3);
-
-        showContacts();
-
-        editContactPerson("Anvi",contact2);
-
-        showContacts();
-        deleteContact("Shraddha");
-        showContacts();
+        displayOptions();
     }
 }
