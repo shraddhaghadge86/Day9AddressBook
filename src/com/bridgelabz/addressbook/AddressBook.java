@@ -4,119 +4,102 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressBook {
-    static ArrayList<ContactPerson> contactPersons = new ArrayList<ContactPerson>();
+    ArrayList<ContactPerson> contactList = new ArrayList<>();
 
-    static void addPerson(ContactPerson person){
-        contactPersons.add(person);
+    public void addContact() {
+        ContactPerson contactPerson = new ContactPerson();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the details of contact person");
+        System.out.print("Enter first name:");
+        contactPerson.setName(sc.next());
+        System.out.print("Enter Last name:");
+        contactPerson.setLastName(sc.next());
+        System.out.println("Enter the Address : ");
+        contactPerson.setAddress(sc.next());
+        System.out.println("Enter the City : ");
+        contactPerson.setCity(sc.next());
+        System.out.println("Enter the State : ");
+        contactPerson.setState(sc.next());
+        System.out.println("Enter the ZipCode : ");
+        contactPerson.setZipCode(sc.next());
+        System.out.println("Enter the Mobile no : ");
+        contactPerson.setPhoneNo(sc.next());
+        contactList.add(contactPerson);
     }
-    static void deleteContact(String name){
-        System.out.println("Deleting " + name);
-        System.out.println("");
-        for (int i=0; i<contactPersons.size(); i++){
-            if(contactPersons.get(i).firstName == name){
-                contactPersons.remove(i);
+
+    @Override
+    public String toString() {
+        return "AddressBook{" +
+                "contactList=" + contactList +
+                '}';
+    }
+
+    public void editContact() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter first name:");
+        String name = sc.next();
+        for (ContactPerson contactPerson : contactList) {
+            if (name.equals(contactPerson.getName())) {
+                System.out.println("Set Details");
+                System.out.print("Enter first name:");
+                contactPerson.setName(sc.next());
+                System.out.print("Enter Last name:");
+                contactPerson.setLastName(sc.next());
+                System.out.println("Enter the Address : ");
+                contactPerson.setAddress(sc.next());
+                System.out.println("Enter the City : ");
+                contactPerson.setCity(sc.next());
+                System.out.println("Enter the State : ");
+                contactPerson.setState(sc.next());
+                System.out.println("Enter the ZipCode : ");
+                contactPerson.setZipCode(sc.next());
+                System.out.println("Enter the Mobile no : ");
+                contactPerson.setPhoneNo(sc.next());
+                break;
             }
         }
+
+
     }
-    static void editContactPerson(String name, ContactPerson person){
-        System.out.println("Replacing " + name + " with " + person.firstName);
-        System.out.println("");
-        for (int i = 0; i < contactPersons.size(); i++){
-            if(contactPersons.get(i).firstName == name){
-                contactPersons.set(i,person);
+
+    public void deleteContact() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter first name:");
+        String name = sc.next();
+        for (ContactPerson contactPerson : contactList) {
+            if (name.equals(contactPerson.getName())) {
+                contactList.remove(contactPerson);
+                break;
             }
-        }
-    }
-    static void showContacts(){
-        if(contactPersons.size() == 0){
-            System.out.println("No contacts in Address book");
-        }
-        System.out.println("Contact details");
-        System.out.println("");
-        for (int i = 0; i < contactPersons.size(); i++) {
-            System.out.println(i+1 + ":" + contactPersons.get(i).firstName);
-            System.out.println("____________________________________");
-            System.out.println("Name : " + contactPersons.get(i).firstName + " " + contactPersons.get(i).lastName);
-            System.out.println("Address : " + contactPersons.get(i).address);
-            System.out.println("City : " + contactPersons.get(i).city);
-            System.out.println("State : " + contactPersons.get(i).state);
-            System.out.println("Zip : " + contactPersons.get(i).zip);
-            System.out.println("Phone Number : " + contactPersons.get(i).phoneNumber);
-            System.out.println("Email : " + contactPersons.get(i).email);
-            System.out.println("");
-        }
-    }
-
-    static ContactPerson readCustomerDetails(){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter Customer Details ");
-        System.out.println("First Name: ");
-        String firstName = scan.nextLine();
-        System.out.println("Last Name: ");
-        String lastName = scan.nextLine();
-        System.out.println("Address: ");
-        String address = scan.nextLine();
-        System.out.println("State: ");
-        String state = scan.nextLine();
-        System.out.println("City: ");
-        String city = scan.nextLine();
-        System.out.println("Zip: ");
-        String zip = scan.nextLine();
-        System.out.println("Phone Number: ");
-        String phoneNumber = scan.nextLine();
-        System.out.println("Email: ");
-        String email = scan.nextLine();
-        ContactPerson person = new ContactPerson(
-                firstName,
-                lastName,
-                address,
-                city,
-                state,
-                zip,
-                phoneNumber,
-                email
-        );
-        return person;
-    }
-
-    static void displayOptions(){
-        Scanner scan =  new Scanner(System.in);
-        System.out.println("Select an option to continue");
-        System.out.println("1. Add user");
-        System.out.println("2. Edit user");
-        System.out.println("3. Delete user");
-        System.out.println("4. Close");
-        int option = scan.nextInt();
-
-        switch (option){
-            case 1:
-                ContactPerson person = readCustomerDetails();
-                addPerson(person);
-                showContacts();
-                displayOptions();
-                break;
-            case 2:
-                System.out.println("Enter the name to edit");
-                String name = scan.nextLine();
-                person = readCustomerDetails();
-                editContactPerson(name, person);
-                showContacts();
-                displayOptions();
-                break;
-            case 3:
-                System.out.println("Enter the name to delete");
-                name = scan.nextLine();
-                deleteContact(name);
-                showContacts();
-                displayOptions();
-                break;
-            case 4:
-                System.out.println("Stopped");
 
         }
     }
-    public static void main(String[] args) {
-        System.out.println("Welcome to Address Book Program");
-        displayOptions();
+    public void operation(){
+        Scanner scanner = new Scanner(System.in);
+        int opration;
+        do {
+            System.out.println("1. ADD CONTACT \n2. DISPLAY CONTACT \n3 EDIT \n4 Delete \n5. EXIT ");
+            System.out.println("Enter the Operation Number");
+            opration = scanner.nextInt();
+            switch (opration) {
+                case 1:
+                    addContact();
+                    break;
+                case 2:
+                    System.out.println(this);
+                    break;
+                case 3:
+                    editContact();
+                    break;
+                case 4:
+                    deleteContact();
+                    break;
+                case 5:
+                    System.out.println("Exiting");
+                    break;
+                default:
+                    System.out.println("Enter The Wrong Opration Number");
+            }
+        } while (opration != 5);
     }
 }
