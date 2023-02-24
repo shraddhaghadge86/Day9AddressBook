@@ -9,6 +9,14 @@ public class AddressBook {
         contactPersons.add(person);
     }
 
+    static void editContactPerson(String name, ContactPerson person){
+        for (int i = 0; i < contactPersons.size(); i++){
+            if(contactPersons.get(i).firstName == name){
+                contactPersons.set(i,person);
+            }
+        }
+    }
+
     static void showContacts(){
         for (int i = 0; i < contactPersons.size(); i++)
             System.out.println(contactPersons.get(i).firstName + " " +
@@ -37,9 +45,24 @@ public class AddressBook {
                 "9156894526",
                 "avadhutghadge@gmail.com"
         );
+        ContactPerson contact3 = new ContactPerson(
+                "A",
+                "Patil",
+                "Palus",
+                "Sangli",
+                "MH",
+                "416310",
+                "7030568952",
+                "anvipatil@gmail.com"
+        );
 
         addPerson(contact1);
         addPerson(contact2);
+        addPerson(contact3);
+
+        showContacts();
+
+        editContactPerson("Anvi",contact3);
 
         showContacts();
     }
